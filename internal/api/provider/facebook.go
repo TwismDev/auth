@@ -92,7 +92,14 @@ func (p facebookProvider) GetUserData(ctx context.Context, tok *oauth2.Token) (*
 			Verified: true,
 			Primary:  true,
 		}}
-	}
+	} else {
+	        fallbackEmail := u.ID + "@fallback.example.com"
+	        data.Emails = []Email{{
+	            Email:    fallbackEmail,
+	            Verified: false,
+	            Primary:  true,
+	        }}
+    	}
 
 	data.Metadata = &Claims{
 		Issuer:   p.ProfileURL,
